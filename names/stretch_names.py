@@ -1,3 +1,4 @@
+
 import time
 import sys
 sys.path.append('..')
@@ -14,32 +15,37 @@ f = open('names_2.txt', 'r')
 names_2 = f.read().split("\n")  # List containing 10000 names
 f.close()
 
-bst_1 = BinarySearchTree(names_1[0])
-bst_2 = BinarySearchTree(names_2[0])
+names_2.sort()
 
+def bin_search(arr, search_val):
+    first = 0
+    last = len(arr) - 1
+    index = -1
+    while (first <= last) and (index == -1):
+        mid = (first + last) // 2
+        if search_val == arr[mid]:
+            index = arr[mid]
+        else:
+            if arr[mid] < search_val:
+                first = mid + 1
+            else:
+                last = mid - 1
+    return index
+
+ns = ["aaron", "zach", "debbie"]
+# print(bin_search(names_2, 'Zach Irvin'))
+# print(bin_search(ns, 'zach'))
 for n in names_1:
-    if n != names_1[0]:
-        bst_1.insert(n)
+    return_val = bin_search(names_2, n)
+    if return_val != -1:
+        duplicates.append(n)
 
-for n in names_2:
-    if n != names_2[0]:
-        bst_2.insert(n)
-
-def callback(val):
-    the_return = bst_2.contains(val)
-    if the_return != False:
-        duplicates.append(the_return)
-
-cb = callback
-bst_1.for_each(cb)
 
 # for name_1 in names_1:
 #     for name_2 in names_2:
 #         if name_1 == name_2:
 #             duplicates.append(name_1)
 
-# runtime Complex is O(n^2)
-# One for loop with another nested for loop
 
 
 end_time = time.time()
